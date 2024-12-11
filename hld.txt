@@ -1,0 +1,55 @@
+Design Components
+Users:
+
+Represents the 250 users accessing the platform.
+Each user has at least one account and a portfolio consisting of assets like stocks or mutual funds.
+Portfolio Service:
+
+Core service that maintains user portfolios.
+Stores user details, accounts, and associated assets in a Database.
+Handles real-time queries to display updated portfolios to users.
+Asset Data Service:
+
+Fetches asset prices from Multiple Data Sources (e.g., APIs for stock/mutual fund prices).
+Updates the Price Cache (Redis) every 10 minutes with fresh prices.
+Streaming Updates:
+
+Uses a Message Queue (e.g., Kafka) to push updates from the Asset Data Service to the Portfolio Service for immediate processing.
+Price Cache:
+
+A fast in-memory cache (e.g., Redis) for storing the latest asset prices, ensuring real-time responsiveness.
+Database:
+
+A relational or NoSQL database (e.g., PostgreSQL, MongoDB) to store user information, account details, and portfolios.
+Optimized for read-heavy operations.
+Load Balancer:
+
+Balances incoming traffic across multiple instances of the Portfolio Service to handle user requests efficiently.
+API Gateway:
+
+Acts as the entry point for all user requests.
+Routes requests to the appropriate service (e.g., fetching portfolio data).
+
+----------------------- Workflow ------------------------------
+Portfolio Calculation:
+
+The Portfolio Service uses the Database to retrieve user accounts and assets.
+Asset prices are fetched from the Price Cache for real-time portfolio calculations.
+Real-Time Updates:
+
+The Asset Data Service fetches prices from external Data Sources every 10 minutes.
+Updates are sent to the Price Cache and Message Queue.
+The Portfolio Service processes updates from the queue to refresh portfolio values.
+User Interaction:
+
+Users send requests via the API Gateway to view their portfolio.
+The Portfolio Service responds with the latest data from the Database and Price Cache.
+Scalability and Reliability
+Scalability:
+
+Use of a Load Balancer and horizontally scalable services ensures the system can handle additional users seamlessly.
+The Message Queue and Price Cache help decouple services for better performance.
+Reliability:
+
+Periodic refresh of data every 10 minutes ensures users see up-to-date portfolios.
+Backup and replication for the Database and Cache ensure fault tolerance.

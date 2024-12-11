@@ -1,0 +1,101 @@
++---------------------+        +---------------------+
+|      Product        |        |      Category       |
++---------------------+        +---------------------+
+| ProductID (PK)      |<-------| CategoryID (PK)     |
+| Name (NOT NULL)     |        | Name (NOT NULL)     |
+| Description         |        | ParentCategoryID    |
+| Price (NOT NULL)    |        +---------------------+
+| Discount            |
+| OriginalPrice       |
+| Currency (NOT NULL) |
+| Weight              |
+| Dimensions          |
+| DateAdded           |
+| LastUpdated         |
+| BrandID (FK)        |
+| CategoryID (FK)     |
++---------------------+
+
++---------------------+        +---------------------+
+|       Brand         |        |      Inventory      |
++---------------------+        +---------------------+
+| BrandID (PK)        |        | InventoryID (PK)    |
+| Name (NOT NULL)     |        | ProductID (FK)      |
+| Description         |        | StockLevel          |
++---------------------+        | WarehouseLocation   |
+                               | SKU                 |
+                               +---------------------+
+
++---------------------+        +---------------------+
+|   CustomerReview    |        |        Image        |
++---------------------+        +---------------------+
+| ReviewID (PK)       |        | ImageID (PK)        |
+| ProductID (FK)      |        | ProductID (FK)      |
+| CustomerID (FK)     |        | URL (NOT NULL)      |
+| Rating (NOT NULL)   |        | AltText             |
+| ReviewText          |        +---------------------+
+| Date                |
++---------------------+
+
+
+Relationships:
+Product → Category:
+
+One product belongs to one category.
+CategoryID in Product is a foreign key (FK) referencing Category.
+Product → Brand:
+
+One product belongs to one brand.
+BrandID in Product is a foreign key (FK) referencing Brand.
+Product → Inventory:
+
+One product can have one inventory record.
+ProductID in Inventory is a foreign key (FK) referencing Product.
+Product → CustomerReview:
+
+One product can have many customer reviews.
+ProductID in CustomerReview is a foreign key (FK) referencing Product.
+Product → Image:
+
+One product can have many images.
+ProductID in Image is a foreign key (FK) referencing Product.
+Constraints:
+PK: Denotes the primary key.
+FK: Denotes foreign keys.
+NOT NULL: Fields that are mandatory.
+NULL: Optional fields.
+
+
+-------------------- Metadata Queries -----------------------
+
+Using Metadata
+The stored metadata can be used in the following ways:
+
+Search and Filtering:
+
+Users can search for "blue cotton shirts" or filter by size and price range.
+Metadata like tags, category, and attributes supports this.
+Personalization and Recommendations:
+
+Suggest items based on user browsing history or similar products.
+E.g., "Customers who bought this also bought..."
+Inventory and Supply Chain Management:
+
+Stock levels and warehouse locations enable efficient replenishment and fulfillment.
+Analytics and Insights:
+
+Monitor which categories are performing well.
+Track pricing trends and customer preferences.
+Marketing and Promotions:
+
+Use customer ratings and reviews to highlight top-rated products.
+Target ads based on product popularity.
+Logistics Optimization:
+
+Delivery estimates and shipping costs rely on weight and dimensions.
+Regulatory Compliance:
+
+Ensure items meet industry standards for safety and quality.
+Customer Support:
+
+Quickly access product details for resolving queries or processing returns.
